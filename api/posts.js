@@ -81,6 +81,8 @@ postsRouter.get('/', async (req, res, next) => {
 
 });
 
+// Test update post
+// curl http://localhost:3000/api/posts/1 -X PATCH -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsYmVydCIsInBhc3N3b3JkIjoiYmVydGllOTkiLCJpZCI6MSwiaWF0IjoxNjg0NDYzODk2fQ.L8FXtkzMrH2Sx2Ayl2fKtpDIlhwTErPNfhEiottoQ_U' -H 'Content-Type: application/json' -d '{"title": "updating my old stuff", "tags": "#oldisnewagain"}'
 postsRouter.patch('/:postId', requireUser, async (req, res, next) => {
     const { postId } = req.params;
     const { title, content, tags } = req.body;
