@@ -1,8 +1,18 @@
 // best practice is to add all utility functions into this file that the entire application will use
+require('dotenv').config();
+
+const { DATABASE_URL_EXTERNAL, DATABASE_URL_INTERNAL, JWT_SECRET } = process.env;
+console.log(DATABASE_URL_EXTERNAL)
 
 const { Client } = require('pg');
 
-const client = new Client('postgres://localhost:5432/juicebox-dev')
+// const client = new Client('postgres://localhost:5432/juicebox-dev')
+const client = new Client({
+    connectionString: DATABASE_URL_EXTERNAL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
 
 async function createUser({ username, password, name, location }) {
     try {
@@ -95,7 +105,7 @@ async function updatePost(postId, fields = {}) {
             SET ${setString}
             WHERE id=$${Object.keys(fields).length + 1}
             RETURNING *;
-            `,[...Object.values(fields),postId]);
+            `, [...Object.values(fields), postId]);
         }
 
         // return early if there's no tags to update
@@ -275,6 +285,7 @@ async function createPostTag(postId, tagId) {
     }
 }
 
+
 async function addTagsToPost(postId, tagList) {
     // console.log(tagList)
     try {
@@ -289,6 +300,7 @@ async function addTagsToPost(postId, tagList) {
         throw err
     }
 }
+
 
 async function getPostsByTagName(tagName) {
     try {
@@ -315,7 +327,7 @@ async function getAllTags() {
             SELECT *
             FROM tags;
         `);
-        
+
         return rows;
     } catch (err) {
         throw err
@@ -324,11 +336,11 @@ async function getAllTags() {
 
 async function getUserByUsername(username) {
     try {
-        const {rows:[user]} = await client.query(`
+        const { rows: [user] } = await client.query(`
             SELECT *
             FROM users
             WHERE username = $1;
-        `,[username]);
+        `, [username]);
 
         return user;
     } catch (err) {

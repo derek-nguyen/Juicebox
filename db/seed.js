@@ -98,8 +98,6 @@ async function createInitialTags() {
         // await addTagsToPost(postOne.id, [happy, inspo]);
         // await addTagsToPost(postTwo.id, [sad,inspo]);
         // await addTagsToPost(postThree.id, [happy, catman, inspo]);
-        
-        // console.log("Finished creating tags!");
 
     } catch (err) {
         console.log("Error creating tags!")
@@ -188,17 +186,11 @@ async function testDB() {
             name: "Newname Sogood",
             location: "Lesterville, KY"
         });
+        console.log('updateUser on users[0] successful')
 
         console.log('Calling getAllPosts');
         const posts = await getAllPosts();
-        // console.log("All Posts Result: ", posts)
-
-        // console.log('Calling updatePost on posts[0]');
-        // const updatePostResult = await updatePost(posts[0].id, {
-        //     title: "New Title",
-        //     content: "Updated Content"
-        // });
-        // console.log('Post Update Result ', updatePostResult);
+        console.log('Get all posts successful: ', posts)
 
         console.log("Calling updatePost on posts[1], only updating tags");
         const updatePostTagsResult = await updatePost(posts[1].id, {
@@ -211,7 +203,7 @@ async function testDB() {
 
         console.log('Calling getUserbyId')
         const albert = await getUserById(users[0].id);
-        // console.log('User Result: ', albert);
+        console.log('User Result: ', albert);
 
         console.log('Finished database tests')
     } catch (err) {

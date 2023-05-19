@@ -2,6 +2,8 @@
 
 const jwt = require('jsonwebtoken');
 const { getUserById } = require('../db');
+
+require('dotenv').config();
 const { JWT_SECRET } = process.env;
 
 const express = require('express');
@@ -67,7 +69,7 @@ module.exports = apiRouter;
 // Test Login: 
 // curl http://localhost:3000/api/users/login -H "Content-Type: application/json" -X POST -d '{"username": "albert", "password": "bertie99"}'
 // Test authentication: 
-// curl http://localhost:3000/api/posts -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsYmVydCIsInBhc3N3b3JkIjoiYmVydGllOTkiLCJpZCI6MSwiaWF0IjoxNjg0MzkyMjE4fQ.X71901BcLrSvKOTckzYC9xHA4QJ3HGFNqSXPctKIKE0'
+// curl http://localhost:3000/api/posts -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsYmVydCIsInBhc3N3b3JkIjoiYmVydGllOTkiLCJpZCI6MSwiaWF0IjoxNjg0NDYzODk2fQ.L8FXtkzMrH2Sx2Ayl2fKtpDIlhwTErPNfhEiottoQ_U'
 
 // Test Register: 
 // # missing a field
@@ -77,6 +79,3 @@ module.exports = apiRouter;
 // # duplicate username
 // curl http://localhost:3000/api/users/register -H "Content-Type: application/json" -X POST -d '{"username": "syzygys", "password": "stars", "name": "josiah", "location": "quebec"}'
 
-
-// Test update post
-// curl http://localhost:3000/api/posts/1 -X PATCH -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsYmVydCIsInBhc3N3b3JkIjoiYmVydGllOTkiLCJpZCI6MSwiaWF0IjoxNjg0NDUyODg3fQ.t6GjazdmrJOVgLdYOKmLU_Jy2Z-VGZTdjI290d_iSXg' -H 'Content-Type: application/json' -d '{"title": "updating my old stuff", "tags": "#oldisnewagain"}'
